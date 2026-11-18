@@ -1,0 +1,58 @@
+== 1. Rating tables ==
+PASS batters eligible = 99  [99]
+PASS bowlers eligible = 68  [68]
+PASS bat eligibility (>=100 HP balls, >=15 innings)
+PASS bowl eligibility (>=120 HP balls, >=15 spells)
+PASS bat: score = .55 z(hp)+.20 z(gam)+.25 z(cons) recomputed  [max abs diff 4.00e-15]
+PASS bat: z_level/z_delta/z_cons columns reproduce
+PASS bat: hp = usual + gam
+PASS bat: rank column is descending score
+PASS bat: top10_prob are multiples of 1/20 (=> 20 bootstrap reps, not 40)
+PASS bowl: score = .55 z(hp)+.20 z(gam)+.25 z(cons) recomputed  [max abs diff 3.55e-15]
+PASS bowl: z_level/z_delta/z_cons columns reproduce
+PASS bowl: hp = usual + gam
+PASS bowl: rank column is descending score
+PASS bowl: top10_prob are multiples of 1/20 (=> 20 bootstrap reps, not 40)
+
+== 2. Submission lists agree across CSV / players.json / notebook ==
+PASS bat top10 CSV == players.json final_top10
+PASS bowl top10 CSV == players.json final_top10
+PASS bat top10 in notebook final cell
+PASS bowl top10 in notebook final cell
+
+== 3. players.json "main" variant == CSV (eligible players) ==
+PASS bat: all 99 eligible players match  [0 mismatches]
+PASS bowl: all 68 eligible players match  [0 mismatches]
+
+== 4. league_stats.json vs notebook printed output ==
+PASS HP balls 43,669 & threshold 0.0199
+PASS leverage ratio HP/ordinary  [3.78x (report must say 3.8x, not 3.9x)]
+PASS swing-SD ratio  [2.58x]
+PASS Brier/AUC match notebook
+PASS counts 730 = 354 + 376
+PASS ball count 174,674
+
+== 5. Claims in the OLD report that the artefacts do NOT support ==
+   notebook overlaps (bat/bowl): {'top10': (7, 6), 'ex_powerplay': (6, 6), 'within_innings': (9, 8), 'rule_based': (4, 6)}
+   old PDF said: top10% 9/8, ex-PP 6/6, within-inn 7/6, rule 4/6  -> labels were scrambled
+   split-half Pearson (bat, bowl): 0.23 0.4 (old PDF said bowlers 0.42)
+   bat bootstrap top-10 odds (20 reps): {'Abhishek Sharma': 0.85, 'Jos Buttler': 0.9, 'Suryakumar Yadav': 0.75, 'Virat Kohli': 0.95, 'Vaibhav Sooryavanshi': 0.6, 'Phil Salt': 0.55, 'Shreyas Iyer': 0.8, 'Tim David': 0.5, 'Sai Sudharsan': 0.5, 'Yashasvi Jaiswal': 0.3}
+   bowl bootstrap top-10 odds (20 reps): {'Rashid Khan': 0.9, 'Sunil Narine': 0.85, 'Varun Chakravarthy': 0.9, 'Krunal Pandya': 0.7, 'Lockie Ferguson': 0.85, 'Wanindu Hasaranga': 0.8, 'Jasprit Bumrah': 0.5, 'Mitchell Santner': 0.5, 'Kuldeep Yadav': 0.75, 'Mohammad Nawaz': 0.55}
+FAIL old claim "top 4 batters stay in top 10 in 80%+ resamples"  [actual [0.85, 0.9, 0.75, 0.95]]
+PASS old claim "top 3 bowlers 80%+"  [actual [0.9, 0.85, 0.9]]
+   notebook funnel: 883 in file, 867 with ball-by-ball (old PDF said 883 have ball data)
+
+== 6. How close are the cut-offs? ==
+   bat: rank10 Yashasvi Jaiswal 1.1562 vs rank11 Rovman Powell 1.1553  gap 0.0010  (top10_prob 0.3 vs 0.2)
+   bowl: rank10 Mohammad Nawaz 1.1680 vs rank11 Josh Hazlewood 1.1581  gap 0.0099  (top10_prob 0.55 vs 0.35)
+
+== 7. Weight sensitivity recomputed from CSV z-scores ==
+   weights (1, 0, 0): bat 9/10, bowl 9/10
+   weights (0.4, 0.3, 0.3): bat 10/10, bowl 9/10
+   weights (0.7, 0.15, 0.15): bat 9/10, bowl 9/10
+   weights (0.33, 0.33, 0.33): bat 9/10, bowl 9/10
+   weights (0.55, 0.2, 0.25): bat 10/10, bowl 10/10
+
+== 8. Mean uplift among eligible == bat 0.0022, bowl 0.0023; top-10 mean bat 0.0107, bowl 0.0130
+
+FAILED CHECKS: 1

@@ -1,0 +1,10 @@
+league_stats.json: structure identical
+outcome_probs.json: structure identical
+wp_grid.json: structure identical
+players.json: structure identical
+matches.json: structure identical
+i1_t20i dims shipped (10, 23, 26) generated (10, 23, 26)
+i1_ipl dims shipped (10, 23, 26) generated (10, 23, 26)
+i2_t20i dims shipped (10, 23, 31) generated (10, 23, 31)
+i2_ipl dims shipped (10, 23, 31) generated (10, 23, 31)
+bad = 0
